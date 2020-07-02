@@ -1,5 +1,6 @@
 package squeek.appleskin.client;
 
+import java.util.NumberFormat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
@@ -27,6 +28,7 @@ import squeek.appleskin.helpers.KeyHelper;
 public class TooltipOverlayHandler
 {
 	private static ResourceLocation modIcons = new ResourceLocation(ModInfo.MODID_LOWER, "textures/icons.png");
+	private static final NumberFormat numberFormat = NumberFormat.getIntegerInstance();
 	public static final int TOOLTIP_REAL_HEIGHT_OFFSET_BOTTOM = 3;
 	public static final int TOOLTIP_REAL_HEIGHT_OFFSET_TOP = -3;
 	public static final int TOOLTIP_REAL_WIDTH_OFFSET_RIGHT = 3;
@@ -85,13 +87,13 @@ public class TooltipOverlayHandler
 
 		int barsNeeded = (int) Math.ceil(Math.abs(biggestHunger) / 2f);
 		boolean hungerOverflow = barsNeeded > 10;
-		String hungerText = hungerOverflow ? ((biggestHunger < 0 ? -1 : 1) * barsNeeded) + "x " : null;
+		String hungerText = hungerOverflow ? numberFormat.format((biggestHunger < 0 ? -1 : 1) * barsNeeded) + "x " : null;
 		if (hungerOverflow)
 			barsNeeded = 1;
 
 		int saturationBarsNeeded = (int) Math.max(1, Math.ceil(Math.abs(biggestSaturationIncrement) / 2f));
 		boolean saturationOverflow = saturationBarsNeeded > 10;
-		String saturationText = saturationOverflow ? ((biggestSaturationIncrement < 0 ? -1 : 1) * saturationBarsNeeded) + "x " : null;
+		String saturationText = saturationOverflow ? numberFormat.format((biggestSaturationIncrement < 0 ? -1 : 1) * saturationBarsNeeded) + "x " : null;
 		if (saturationOverflow)
 			saturationBarsNeeded = 1;
 
